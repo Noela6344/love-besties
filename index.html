@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Little Memory Lane 💗</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 18px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffe0ed, #fff7fb, #ffd4e6);
+  font-family: Arial, sans-serif;
+  color: #75405b;
+}
+
+.card {
+  width: 100%;
+  max-width: 490px;
+  padding: 28px 22px;
+  border-radius: 28px;
+  background: white;
+  text-align: center;
+  box-shadow: 0 12px 35px #cf6d9940;
+}
+
+h1 {
+  color: #d94f87;
+  font-size: 27px;
+}
+
+#emoji {
+  font-size: 65px;
+  margin: 15px;
+}
+
+#question {
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+#progress {
+  color: #b77b96;
+  font-size: 13px;
+}
+
+.answer {
+  width: 100%;
+  padding: 15px 12px;
+  margin: 7px 0;
+  border: 2px solid #f4c5d8;
+  border-radius: 17px;
+  background: #fff0f6;
+  color: #75405b;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.answer:hover {
+  background: #ffd9e8;
+  transform: scale(1.025);
+}
+
+.answer:disabled {
+  cursor: default;
+  opacity: 0.75;
+}
+
+#reaction {
+  padding: 17px;
+  margin-top: 18px;
+  border-radius: 18px;
+  background: #fff0f6;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.pop {
+  animation: pop 0.45s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.07); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+#next {
+  width: 100%;
+  padding: 15px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 25px;
+  background: #df5791;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hidden { display: none !important; }
+
+#letter {
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.heart {
+  font-size: 30px;
+  text-align: center;
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+
+  <div style="font-size:30px">💗 ✨ 💗</div>
+  <h1>Roommates for a Little While, Memories for a Long Time 😂💕</h1>
+
+  <p id="intro">
+    Welcome, madam! 😂🎤<br><br>
+    You have been summoned to answer for your behaviour
+    during your stay. There will be questions about movies,
+    sleeping, laughter and prayer. 😭🙏🏽<br><br>
+    Choose wisely. Your answers may be used against you. 🤣
+  </p>
+
+  <p id="progress"></p>
+  <div id="emoji">🕵🏽‍♀️</div>
+  <h2 id="question">Are you ready for this investigation? 👀</h2>
+
+  <div id="answers">
+    <button class="answer" onclick="startQuiz()">Let's expose our memories! 😂</button>
+    <button class="answer" onclick="startQuiz()">I need a lawyer first! 😭</button>
+  </div>
+
+  <div id="reaction" class="hidden"></div>
+  <button id="next" class="hidden" onclick="nextQuestion()">Next question ➜</button>
+
+  <div id="ending" class="hidden">
+    <div style="font-size:65px">🥹💗✨</div>
+    <h1>Okay, jokes aside...</h1>
+    <div id="letter">
+      My girl, 💕<br><br>
+
+      I made this little thing just to remind you that having you
+      here meant so much to me. 🥹❤️<br><br>
+
+      From watching The Mentalist and Impastor, to laughing,
+      sleeping like we had absolutely no responsibilities,
+      and joining the Hallelujah Challenge together, we shared
+      such simple but beautiful moments. 😂🙏🏽<br><br>
+
+      Maybe to someone else, they were just ordinary days.
+      But to me, having you around made them special.
+      Sometimes it's not about doing something big or going
+      somewhere fancy. It's about having someone beside you,
+      sharing space, laughing at random things and simply
+      enjoying each other's company. 💗<br><br>
+
+      Thank you for coming, for your time, for your presence,
+      and for being part of those little moments with me.
+      I hope you felt at home, because I genuinely loved having
+      you here. 🥹💕<br><br>
+
+      May God bless our friendship, give us many more moments
+      to share, and fill our lives with laughter, love and beautiful
+      memories. And may our Hallelujah Challenge prayers bear
+      beautiful fruit! 🙏🏽✨<br><br>
+
+      <div class="heart">You being here mattered to me. 💗</div>
+      <div class="heart">Thank you for being you. 🫶🏽</div>
+      <div class="heart">Now go and get some sleep. AGAIN. 😭😂</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const quiz = [
+  {
+    emoji: "🎬",
+    question: "First of all... when we put on The Mentalist, what was the real situation?",
+    answers: [
+      "We were focused detectives. 🕵🏽‍♀️",
+      "Trying to solve the case before Patrick Jane. 😂",
+      "One minute watching, next minute asking what happened. 😭"
+    ],
+    reactions: [
+      "Ladies and gentlemen, we have two FBI agents in the house! Please solve my missing snacks case next. 🕵🏽‍♀️🍿",
+      "Patrick Jane needed a break because WE were about to solve every crime in California! 😭😂",
+      "The character is explaining the biggest clue and we ask, 'Wait, who is that?' GIRL! 💀🤣"
+    ]
+  },
+  {
+    emoji: "🤣",
+    question: "And then came Impastor... were we behaving like serious adults?",
+    answers: [
+      "Very mature and responsible. 😇",
+      "Laughing at things we cannot explain. 😂",
+      "We deserve our own comedy show. 🎤"
+    ],
+    reactions: [
+      "The lie detector says: LIEEE! 😂🚨 Serious adults where? Please show me!",
+      "Our humour needs to be studied by scientists. Why are we like this? 😭🔬",
+      "Season one: Two people watching TV. Season two: Two people disturbing the entire neighbourhood. 🤣📺"
+    ]
+  },
+  {
+    emoji: "😴",
+    question: "Let's address the sleeping situation. Why were we sleeping so much?",
+    answers: [
+      "We were resting responsibly. 😌",
+      "Sleep was our full-time job. 😭",
+      "We blinked and it was bedtime again. 😂"
+    ],
+    reactions: [
+      "Resting responsibly! Your Honour, the defence would like to present Exhibit A: the pillow. 🛏️😂",
+      "Congratulations! Employee of the month at Sleep Limited. Salary: more sleep. 😭💤",
+      "The sun came up, we slept. The sun went down, we slept. At this point, we were in a committed relationship with the mattress! 💀🛌"
+    ]
+  },
+  {
+    emoji: "🙏🏽",
+    question: "But we also joined the Hallelujah Challenge! What kind of duo were we?",
+    answers: [
+      "Prayer warriors! 🔥",
+      "Praising God together! 🙌🏽",
+      "God knows our hearts and our sleep schedules. 😭🙏🏽"
+    ],
+    reactions: [
+      "The prayer department is OPEN! Heaven, please pick up extension number BESTIE! 🔥🙏🏽😂",
+      "From comedy episodes to praising God together. Our range is unmatched! 🙌🏽💗",
+      "We love the Lord, and the Lord knows we also love our sleep! 😭🙏🏽💤"
+    ]
+  },
+  {
+    emoji: "😂",
+    question: "What was the most underrated part of having you here?",
+    answers: [
+      "Just being together. 💗",
+      "The random conversations. 🤣",
+      "Doing absolutely nothing together. 😭"
+    ],
+    reactions: [
+      "AWWW! Why did this question suddenly become emotional? Someone bring me tissues! 🥹💕",
+      "Our conversations need transcripts because WHAT were we even discussing? 😭🎤",
+      "Professional nothing-doers, but somehow the days were full! Please put that on our CVs. 😂🏆"
+    ]
+  },
+  {
+    emoji: "💌",
+    question: "Last question! Do you know that I genuinely loved having you around?",
+    answers: [
+      "Obviously, I'm amazing! 😌😂",
+      "A little bit... 🥹",
+      "Not this emotional business! 😭💗"
+    ],
+    reactions: [
+      "THE CONFIDENCE! 😂😂 And honestly, you are right. But let me have my appreciation moment!",
+      "Well, let this website make it official: you mean more to me than you know. 🥹💗",
+      "Too late! The emotional damage has begun. Please proceed to your heartfelt message. 😭💌"
+    ]
+  }
+];
+
+let current = 0;
+let answered = false;
+
+function startQuiz() {
+  document.getElementById("intro").classList.add("hidden");
+  showQuestion();
+}
+
+function showQuestion() {
+  answered = false;
+  const q = quiz[current];
+
+  document.getElementById("progress").textContent =
+    "Memory investigation: " + (current + 1) + " of " + quiz.length;
+
+  document.getElementById("emoji").textContent = q.emoji;
+  document.getElementById("question").textContent = q.question;
+
+  const reaction = document.getElementById("reaction");
+  reaction.classList.add("hidden");
+  reaction.classList.remove("pop");
+  reaction.textContent = "";
+
+  document.getElementById("next").classList.add("hidden");
+
+  const area = document.getElementById("answers");
+  area.innerHTML = "";
+
+  q.answers.forEach(function(answer, index) {
+    const button = document.createElement("button");
+    button.className = "answer";
+    button.textContent = answer;
+
+    button.onclick = function() {
+      if (answered) return;
+      answered = true;
+
+      document.querySelectorAll(".answer").forEach(function(b) {
+        b.disabled = true;
+      });
+
+      reaction.textContent = q.reactions[index];
+      reaction.classList.remove("hidden");
+      void reaction.offsetWidth;
+      reaction.classList.add("pop");
+
+      const next = document.getElementById("next");
+      next.textContent = current === quiz.length - 1
+        ? "Okay, show me my message! 💌"
+        : "Next memory, please! 😂➡️";
+
+      next.classList.remove("hidden");
+      next.classList.remove("pop");
+      void next.offsetWidth;
+      next.classList.add("pop");
+    };
+
+    area.appendChild(button);
+  });
+}
+
+function nextQuestion() {
+  if (!answered) return;
+
+  if (current < quiz.length - 1) {
+    current++;
+    showQuestion();
+  } else {
+    document.getElementById("progress").classList.add("hidden");
+    document.getElementById("emoji").classList.add("hidden");
+    document.getElementById("question").classList.add("hidden");
+    document.getElementById("answers").classList.add("hidden");
+    document.getElementById("reaction").classList.add("hidden");
+    document.getElementById("next").classList.add("hidden");
+    document.getElementById("ending").classList.remove("hidden");
+  }
+}
+</script>
+</body>
+</html>
